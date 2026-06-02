@@ -1,3 +1,2 @@
-#!/data/data/com.termux/files/usr/bin/bash
-rm -f cert.pem key.pem
-openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes
+chmod +x generate_cert.sh
+./generate_cert.sh

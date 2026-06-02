@@ -1,4 +1,4 @@
-# TrackMeNow 🌐
+# TrackMe 🌐
 
 ## 🎯 Secure OSINT Location Tracking Engine v1.0.4
 

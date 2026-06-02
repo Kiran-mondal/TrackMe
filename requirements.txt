@@ -15,3 +15,6 @@ itsdangerous==2.1.2
 
 # Environment configuration utility
 click==8.1.7
+
+# OSINT Reverse Geocoding Module (Converts coordinates to street addresses)
+geopy==2.4.1

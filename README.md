@@ -6,6 +6,19 @@ A real-time location tracking application using HTML5 Geolocation API and Flask 
 
 ---
 
+## ⚡ Quick Start (One Command)
+
+```bash
+git clone https://github.com/Kiran-mondal/TrackMe.git && cd TrackMe && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && chmod +x generate_cert.sh && ./generate_cert.sh && python app.py
+```
+
+**Windows PowerShell**:
+```bash
+git clone https://github.com/Kiran-mondal/TrackMe.git; cd TrackMe; python3 -m venv venv; venv\Scripts\Activate.ps1; pip install -r requirements.txt; .\generate_cert.sh; python app.py
+```
+
+---
+
 ## ✨ Features
 
 - 🗺️ **Real-time GPS Tracking** - Browser-based geolocation tracking
@@ -22,283 +35,130 @@ A real-time location tracking application using HTML5 Geolocation API and Flask 
 
 ## 📋 System Prerequisites
 
-Before you begin, ensure you have the following installed:
 - **Python** 3.7+
 - **pip** (Python package manager)
 - **Git** (for cloning repository)
-- **OpenSSL** (usually pre-installed on Linux/Mac, included in Windows Python)
+- **OpenSSL** (usually pre-installed on Linux/Mac)
 - **Bash** (for running certificate generation script)
 - Modern web browser with Geolocation API support
 
 ### Verify Prerequisites:
 ```bash
-python3 --version    # Check Python
-pip --version        # Check pip
-git --version        # Check Git
-openssl version      # Check OpenSSL
+python3 --version && pip --version && git --version && openssl version
 ```
 
 ---
 
-## 🚀 Quick Installation (One Command)
-
-### Complete Installation & Launch:
-
-```bash
-# Clone the repository
-git clone https://github.com/Kiran-mondal/TrackMeNow.git
-
-# Navigate to project directory
-cd TrackMeNow
-
-# Create virtual environment (optional but recommended)
-python3 -m venv venv
-
-# Activate virtual environment
-# On Linux/Mac:
-source venv/bin/activate
-# On Windows:
-# venv\Scripts\activate
-
-# Install all dependencies
-pip install -r requirements.txt
-
-# Make the certificate generation script executable
-chmod +x generate_cert.sh
-
-# Generate SSL/TLS self-signed certificates
-./generate_cert.sh
-
-# Launch the application with HTTPS
-python app.py
-```
-
----
-
-## 📦 Detailed Installation Steps
+## 🚀 Installation Steps
 
 ### Step 1: Clone the Repository
-
 ```bash
-git clone https://github.com/Kiran-mondal/TrackMeNow.git
-cd TrackMeNow
+git clone https://github.com/Kiran-mondal/TrackMe.git
+cd TrackMe
 ```
 
-### Step 2: Create a Virtual Environment (Recommended)
-
-Creating a virtual environment isolates project dependencies and prevents conflicts.
-
+### Step 2: Create Virtual Environment
 ```bash
-# Create virtual environment
 python3 -m venv venv
-
-# Activate it:
-# On Linux/Mac:
-source venv/bin/activate
-
-# On Windows:
-venv\Scripts\activate
-
-# On Windows PowerShell:
-venv\Scripts\Activate.ps1
+source venv/bin/activate    # Linux/Mac
+# venv\Scripts\activate     # Windows
 ```
 
 ### Step 3: Install Dependencies
-
 ```bash
 pip install -r requirements.txt
 ```
 
-This installs:
-- **Flask 3.0.2** - Web framework for backend server
-- **Werkzeug 3.0.1** - WSGI utilities and HTTP parsing
-- **Jinja2 3.1.3** - Template engine for HTML rendering
-- **MarkupSafe 2.1.5** - HTML/XML handling utilities
-- **itsdangerous 2.1.2** - Secure payload serialization
-- **click 8.1.7** - CLI utilities
-- **geopy 2.4.1** - Reverse geocoding (converts coordinates to addresses)
-
-### Step 4: Generate SSL/TLS Certificates
-
-The project requires self-signed certificates for HTTPS/SSL encryption.
-
-#### Make script executable:
+### Step 4: Generate SSL Certificates
 ```bash
 chmod +x generate_cert.sh
-```
-
-#### Generate certificates:
-```bash
 ./generate_cert.sh
 ```
 
-This script:
-- Auto-detects Termux environment (for mobile deployment)
-- Creates `cert.pem` (SSL certificate) - valid for 365 days
-- Creates `key.pem` (private key) - RSA 4096-bit encryption
-- Validates successful file creation
-
-#### Verify certificate generation:
-```bash
-# Check if certificates were created
-ls -l cert.pem key.pem
-
-# Output should show:
-# -rw-r--r-- 1 user group XXXX cert.pem
-# -rw-r--r-- 1 user group XXXX key.pem
-```
-
-**Note**: Certificates are self-signed for development/testing. Browsers will show a security warning (normal behavior - bypass with "Advanced" > "Proceed").
-
 ### Step 5: Launch the Application
-
 ```bash
 python app.py
 ```
 
-The application will:
-1. Display the TrackMeNow banner
-2. Initialize SSL/TLS encryption
-3. Show targeting links
-4. Listen for incoming connections
-
 ---
 
-## 🎨 Application Interface
+## 📸 Screenshots
 
-### Live Console Output Example:
+### Console Output - Live Location Tracking
+![TrackMe Console Output](https://github.com/Kiran-mondal/TrackMe/raw/main/screenshots/console-output.png)
 
-When you run `python app.py`, you'll see a similar output to this:
+*Real-time console showing IP information, targeting links, and location capture telemetry*
 
-```
-╔════════════════════════════════════════════════════╗
-║                                                    ║
-║           TRACKMENOM v1.0.4                       ║
-║           Personal OSINT & IP Network Engine      ║
-║                                                    ║
-╚════════════════════════════════════════════════════╝
+### Web Interface - Location Map
+*[Add your web interface screenshot here]*
 
-[+] Personal OSINT & IP Network Engine v1.0.4 [+]
-═════════════════════════════════════════════════
+### Live Location Data
+*[Add your location tracking screenshot here]*
 
-[+] Scanning Local Network Interfaces...
-[+] Status: ONLINE and connected
-
-═══════════[ YOUR DEVICE IP INFO ]═══════════
-YOUR LOCAL IP   : http://100.73.179.109:5000
-LOCAL LOOPBACK  : http://127.0.0.1:5000
-═════════════════════════════════════════════
-
-[+] Running secure local server. Press Ctrl+C to stop.
- * Serving Flask app 'app'
- * Debug mode: off
- ⚠️  WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
- * Running on all addresses (0.0.0.0)
- * Running on http://127.0.0.1:5000
- * Running on http://100.73.179.109:5000
-
-Press CTRL+C to quit
-```
+### Mobile (Termux) Deployment
+*[Add your mobile deployment screenshot here]*
 
 ---
 
 ## 💻 Usage
 
 ### Access the Application:
-
-After launching `python app.py`, open your browser and navigate to:
+After launching `python app.py`, open your browser:
 
 - **Local Access**: `https://127.0.0.1:5000`
 - **LAN Access**: `https://<YOUR_LOCAL_IP>:5000`
 
 ### How to Use:
-
-1. Open the URL in your web browser
-2. Browser will ask for location permission - **Allow**
-3. Your GPS location will appear on the interactive map
-4. The tracker updates in real-time as you move
-5. Check terminal/console for live telemetry logs:
-   ```
-   [🎯] TARGET COMPROMISED - NEW LOCATION CAPTURED!
-   LATITUDE  : XX.XXXXX
-   LONGITUDE : XX.XXXXX
-   ADDRESS   : Street, City, Country
-   STATUS    : Data successfully intercepted & parsed.
-   ```
+1. Allow location permission when browser asks
+2. Your GPS location appears on the interactive map
+3. Tracker updates in real-time as you move
+4. Check terminal for live telemetry logs
 
 ---
 
 ## 📁 Project Structure
 
 ```
-TrackMeNow/
-├── app.py                    # Main Flask application with SSL/TLS
-├── generate_cert.sh          # Certificate generation script
-├── location_tool.py          # Location utility functions
-├── requirements.txt          # Python dependencies
-├── templates/
-│   └── index.html           # Frontend HTML with geolocation
-├── static/
-│   ├── css/                 # Stylesheets
-│   ├── js/                  # JavaScript files
-│   └── images/              # Images and assets
-├── README.md                # This file
-├── LICENSE                  # GPL-3.0 License
-└── .gitignore              # Git ignore rules
+TrackMe/
+├── app.py                 # Main Flask application with SSL/TLS
+├── generate_cert.sh       # Certificate generation script
+├── location_tool.py       # Location utility functions
+├── requirements.txt       # Python dependencies
+├── templates/index.html   # Frontend HTML with geolocation
+├── static/                # CSS, JavaScript, Images
+├── README.md             # This file
+├── LICENSE               # GPL-3.0 License
+└── .gitignore           # Git ignore rules
 ```
 
 ---
 
-## ����️ Technology Stack
+## 🏗️ Technology Stack
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
 | **Backend** | Flask 3.0.2 (Python) | Web server & API endpoints |
 | **Frontend** | HTML5, CSS3, JavaScript | User interface |
 | **Geolocation** | HTML5 Geolocation API | GPS coordinate retrieval |
-| **Mapping** | Leaflet.js / Mapping Library | Interactive map visualization |
+| **Mapping** | Leaflet.js | Interactive map visualization |
 | **Real-time** | WebSockets / AJAX | Live location updates |
-| **Geocoding** | geopy (Nominatim) | Reverse geocoding (coords → addresses) |
-| **Security** | OpenSSL/SSL-TLS | HTTPS encryption, self-signed certs |
+| **Geocoding** | geopy (Nominatim) | Reverse geocoding |
+| **Security** | OpenSSL/SSL-TLS | HTTPS encryption |
 
 ---
 
 ## ⚙️ Configuration
 
-### Default Configuration (in `app.py`):
-
+### Default Settings (in `app.py`):
 ```python
-# Server Configuration
 host='0.0.0.0'           # Listen on all interfaces
 port=5000                # Port number
-debug=True               # Development mode (auto-reload)
-
-# SSL/TLS Configuration
-ssl_context=(cert_path, key_path)  # Use self-signed certificates
+debug=True               # Development mode
+ssl_context=(cert_path, key_path)  # Self-signed certificates
 ```
 
-### To Change Port:
-Edit `app.py` line 96:
-```python
-app.run(
-    host='0.0.0.0', 
-    port=8080,              # Change from 5000 to desired port
-    debug=True, 
-    ssl_context=(cert_path, key_path)
-)
-```
-
-### Environment Variables:
-```bash
-# Set debug mode
-export FLASK_ENV=development
-
-# Run with specific host
-export FLASK_HOST=0.0.0.0
-
-# Run with specific port
-export FLASK_PORT=5000
-```
+### Change Port:
+Edit `app.py` and modify the port number from 5000 to your desired port.
 
 ---
 
@@ -307,34 +167,13 @@ export FLASK_PORT=5000
 ### Main Route
 **GET** `/`
 - Returns the main tracking interface (index.html)
-- **Response**: HTML interface with geolocation form
 
 ### Location Update Endpoint
 **POST** `/update_location`
 - Receives GPS coordinates from frontend
 - Performs reverse geocoding
 - Logs telemetry with ANSI colors
-- **Request Body**:
-  ```json
-  {
-    "lat": 40.7128,
-    "lon": -74.0060
-  }
-  ```
-- **Response**:
-  ```json
-  {
-    "status": "success",
-    "message": "Location updated"
-  }
-  ```
-- **Error Response**:
-  ```json
-  {
-    "status": "error",
-    "message": "Error description"
-  }
-  ```
+- **Request Body**: `{"lat": 40.7128, "lon": -74.0060}`
 
 ---
 
@@ -344,7 +183,6 @@ export FLASK_PORT=5000
 - **Type**: Self-signed X.509 certificate
 - **Key Size**: RSA 4096-bit encryption
 - **Validity**: 365 days from generation
-- **CN (Common Name)**: localhost
 - **Files**: `cert.pem` (certificate) + `key.pem` (private key)
 
 ### Security Features:
@@ -353,138 +191,46 @@ export FLASK_PORT=5000
 ✅ Privacy-focused location tracking  
 ✅ No external service dependencies for HTTPS  
 
-### Browser Security Warning:
-When accessing `https://127.0.0.1:5000`:
-1. Browser shows "Your connection is not private"
-2. This is **normal** for self-signed certificates
-3. Click **Advanced** → **Proceed to 127.0.0.1** (or equivalent)
-4. Connection is still encrypted, just self-signed
-
 ---
 
 ## 🐛 Troubleshooting
 
-### Issue: Certificate Files Not Created
+### Certificate Generation Failed
 ```bash
-# Error: "Failed to compile credentials"
-
-# Solution:
-# 1. Check OpenSSL is installed
-openssl version
-
-# 2. Manual certificate generation
 openssl req -x509 -newkey rsa:4096 -nodes \
     -out cert.pem -keyout key.pem -days 365 \
     -subj "/CN=localhost"
-
-# 3. Verify files
-ls -l cert.pem key.pem
 ```
 
-### Issue: "Port 5000 Already in Use"
+### Port Already in Use
 ```bash
-# Find process using port 5000
 lsof -i :5000           # macOS/Linux
 netstat -ano | grep 5000  # Windows
-
-# Kill the process or use different port
-# Edit app.py, change port to 5001, 8000, etc.
+# Edit app.py to use a different port
 ```
 
-### Issue: Location Not Updating
-- ✅ Check browser console (F12) for JavaScript errors
-- ✅ Verify browser has geolocation permission
-- ✅ Check HTTPS is being used (not HTTP)
-- ✅ Ensure location services are enabled on device
-- ✅ Try in incognito/private mode (clear permissions)
-
-### Issue: "Address Lookup Timeout"
-```bash
-# geopy reverse geocoding failed (slow network)
-# Solution: Check internet connection, try again
-# The app will show "Failed to resolve address (Network Timeout)"
-```
-
-### Issue: Server Not Starting with Flask
-```bash
-# Error: "Address already in use"
-
-# Check if port is available
-# Kill process or use different port
-python app.py  # Will auto-generate certs if missing
-```
-
-### Issue: Certificate Errors on Windows
-```bash
-# Windows may require specific OpenSSL path
-# Ensure Python's OpenSSL is used:
-pip install --upgrade pyopenssl
-
-# Or generate certificates manually:
-python -m OpenSSL.crypto
-```
+### Location Not Updating
+- ✅ Check browser console (F12) for errors
+- ✅ Verify browser geolocation permission
+- ✅ Ensure HTTPS is being used (not HTTP)
+- ✅ Enable location services on device
+- ✅ Try in incognito/private mode
 
 ---
 
 ## 📱 Mobile Deployment (Termux)
 
-The project auto-detects and works on Termux (Android terminal emulator):
-
 ```bash
-# In Termux:
 pkg install python git openssl
-git clone https://github.com/Kiran-mondal/TrackMeNow.git
-cd TrackMeNow
+git clone https://github.com/Kiran-mondal/TrackMe.git
+cd TrackMe
 pip install -r requirements.txt
 chmod +x generate_cert.sh
-./generate_cert.sh  # Auto-detects Termux environment
+./generate_cert.sh
 python app.py
 ```
 
-Then access from another device on same WiFi:
-```
-https://<ANDROID_DEVICE_LOCAL_IP>:5000
-```
-
----
-
-## 🎨 Understanding the Output
-
-When you run `python app.py`, you'll see detailed console output showing:
-
-```
-[+] Secure OSINT Location Tracking Engine v1.0.4
-[*] Initializing SSL/TLS layer with self-signed certificates...
-[+] Framework status: ACTIVE and listening for incoming payloads...
-
-==========[ TARGETING LINKS ]==========
- LOCAL LOOPBACK : https://127.0.0.1:5000
- LAN CAPTURE IP : https://100.73.179.109:5000
-=====================================
-[*] Awaiting target interaction. Live logs will stream below...
-
-[🎯] TARGET COMPROMISED - NEW LOCATION CAPTURED!
-    LATITUDE  : 40.7128
-    LONGITUDE : -74.0060
-    ADDRESS   : New York City, USA
-    STATUS    : Data successfully intercepted & parsed.
-```
-
-**Color Legend**:
-- 🟢 **GREEN**: Success status, active services
-- 🔵 **CYAN**: Information, connection details
-- 🟡 **YELLOW**: Coordinates and location data
-- 🔴 **RED**: Errors and warnings
-
----
-
-## 📊 Performance
-
-- **Response Time**: < 500ms for location update
-- **Reverse Geocoding**: 2-10s (depends on network)
-- **Max Concurrent Users**: Limited by Flask/system resources
-- **Memory Usage**: ~50-100MB running
-- **CPU Usage**: Minimal (event-driven)
+Access from another device: `https://<ANDROID_DEVICE_IP>:5000`
 
 ---
 
@@ -496,7 +242,6 @@ When you run `python app.py`, you'll see detailed console output showing:
 - Use for **authorized security testing** only
 - Comply with local laws and regulations
 - Respect user privacy and data protection
-- Do not track without permission
 
 ---
 
@@ -524,14 +269,14 @@ Contributions are welcome! Please follow these steps:
 
 **Kiran Mondal**  
 📱 GitHub: [@Kiran-mondal](https://github.com/Kiran-mondal)  
-🌐 Repository: [TrackMeNow](https://github.com/Kiran-mondal/TrackMeNow)
+🌐 Repository: [TrackMe](https://github.com/Kiran-mondal/TrackMe)
 
 ---
 
 ## 📧 Support & Issues
 
 For issues, questions, bugs, or suggestions:
-- 🐛 Open an [Issue](https://github.com/Kiran-mondal/TrackMeNow/issues)
+- 🐛 Open an [Issue](https://github.com/Kiran-mondal/TrackMe/issues)
 - 💬 Check existing issues for solutions
 - 📮 Contact via GitHub
 
@@ -545,36 +290,6 @@ For issues, questions, bugs, or suggestions:
 - **HTML5 Geolocation API** - Browser location access
 - **OpenSSL** - SSL/TLS certificate generation
 - Community feedback and contributions
-
----
-
-## 📚 Quick Reference
-
-### Installation One-Liner:
-```bash
-git clone https://github.com/Kiran-mondal/TrackMeNow.git && cd TrackMeNow && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && chmod +x generate_cert.sh && ./generate_cert.sh && python app.py
-```
-
-### Common Commands:
-```bash
-# Start server
-python app.py
-
-# Check certificates
-ls -l cert.pem key.pem
-
-# Regenerate certificates
-./generate_cert.sh
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Deactivate virtual environment
-deactivate
-
-# Check running processes
-ps aux | grep python
-```
 
 ---
 

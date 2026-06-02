@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackMeNow</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; background-color: #f4f4f9; }
+        button { padding: 15px 30px; font-size: 18px; cursor: pointer; background-color: #007BFF; color: white; border: none; border-radius: 5px; }
+        #status { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>TrackMeNow Location Tool</h1>
+    <button onclick="getLocation()">Share My Location</button>
+    <p id="status"></p>
+
+    <script>
+        function getLocation() {
+            const status = document.getElementById('status');
+            if (!navigator.geolocation) {
+                status.textContent = 'Geolocation is not supported by your browser';
+                return;
+            }
+            status.textContent = 'Locating...';
+            navigator.geolocation.getCurrentPosition(success, error);
+        }
+
+        function success(position) {
+            const latitude  = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            status.textContent = Lat: ${latitude}, Lon: ${longitude};
+
+            // Send coordinates back to your Flask backend
+            fetch('/update_location', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lat: latitude, lon: longitude })
+            });
+        }
+
+        function error() {
+            status.textContent = 'Unable to retrieve your location';
+        }
+    </script>
+</body>
+</html>

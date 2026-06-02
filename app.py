@@ -8,7 +8,6 @@ def get_local_ip():
     """Function to find the actual local IP address of the device"""
     s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
     try:
-        # Connect to an external address to determine the local IP
         s.connect(('8.8.8.8', 80))
         ip = s.getsockname()[0]
     except Exception:
@@ -19,23 +18,24 @@ def get_local_ip():
 
 @app.route('/')
 def index():
-    # Local dashboard for IP monitoring
-    return "<h1>OSINT Core is Running Locally! Check Termux Console.</h1>"
+    return "<h1>OSINT Core is Running Locally!</h1>"
 
 if __name__ == '__main__':
-    # Banner interface
-    print("\033[92m" + "="*50)
-    print("""
-  _____ ____    _    ____ _  ____  _____ _   _   _    _ 
- |_   _|  _ \  / \  / ___| |/ /  \/  | ____| \ | |/ \  / |
-   | | | |_) |/ _ \| |   | ' /| |\/| |  _| |  \| / _ \ | |
-   | | |  _ </ ___ \ |___| . \| |  | | |___| |\  / ___ \| |
-   |_| |_| \_/_/   \_\____|_|\_\_|  |_|_____|_| \_/_/   \_\_|
-    """)
-    print(" [*] Personal OSINT & IP Network Engine v1.0.4 [*]")
-    print("="*50 + "\033[0m")
+    # Clear the terminal screen before displaying the banner
+    os.system('clear')
     
-    # Retrieve local IP
+    # Corrected Banner for TRACK ME NOW with spacing
+    print("\033[92m" + "="*65)
+    print("""
+  _____ ___    _    ____ _  __  __ _____    __  __  ___  __    __
+ |_   _| _ \  / \  / ___| |/ / |  \/  | ____|  |  \/  |/ _ \ \  / /
+   | | | |_) |/ _ \| |   | ' /  | |\/| |  _|    | |\/| | | | \ \/ / 
+   | | |  _ < / ___ \ |___| . \  | |  | | |___   | |  | | |_| | /  \ 
+   |_| |_| \_\_/   \_\____|_|\_\ |_|  |_|_____|  |_|  |_|\___//_/\_\
+    """)
+    print(" [*] TRACK ME NOW - Personal OSINT Network Engine v1.0.5 [*]")
+    print("="*65 + "\033[0m")
+    
     my_ip = get_local_ip()
     
     print("\033[94m[*] Scanning Local Network Interfaces...")
@@ -46,7 +46,6 @@ if __name__ == '__main__':
     print("\033[93m=============================================\033[0m")
     print("\n[*] Running secure local server. Press Ctrl+C to stop.\n")
 
-    # Run the server locally
     app.run(
         host='0.0.0.0', 
         port=5000, 

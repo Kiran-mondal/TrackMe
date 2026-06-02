@@ -1,56 +1,29 @@
+import socket
 import os
-import subprocess
-from flask import Flask, render_template, request, jsonify
-from geopy.geocoders import Nominatim
+from flask import Flask, render_template
 
 app = Flask(name)
 
-# Geopy OSINT Module Configuration
-geolocator = Nominatim(user_agent="TrackMeNow_OSINT_Engine")
+def get_local_ip():
+    """Function to find the actual local IP address of your device"""
+    s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+    try:
+        # Detect router or local network IP without sending any actual data
+        s.connect(('8.8.8.8', 80))
+        ip = s.getsockname()[0]
+    except Exception:
+        ip = '127.0.0.1'
+    finally:
+        s.close()
+    return ip
 
 @app.route('/')
 def index():
-    return render_template('index.html')
-
-@app.route('/update_location', methods=['POST'])
-def update_location():
-    try:
-        data = request.get_json()
-        if not data:
-            return jsonify({"status": "error", "message": "No data received"}), 400
-
-        latitude = data.get('latitude')
-        longitude = data.get('longitude')
-
-        if latitude and longitude:
-            # লাইভ ডাটা ইন্টারসেপশন অ্যালার্ট এবং লগিং
-            print("\n" + "="*50)
-            print(f"[+] TARGET INTERACTION DETECTED!")
-            print(f"[*] Latitude  : {latitude}")
-            print(f"[*] Longitude : {longitude}")
-            print(f"[*] Maps Link : https://maps.google.com/?q={latitude},{longitude}")
-            
-            # Geopy ব্যবহার করে অক্ষাংশ-দ্রাঘিমাংশ থেকে সম্পূর্ণ ঠিকানা বের করা
-            try:
-                location = geolocator.reverse((latitude, longitude), timeout=10)
-                if location:
-                    print(f"[+] Full Address: {location.address}")
-                else:
-                    print("[-] Address: Unable to resolve street name.")
-            except Exception as geo_err:
-                print(f"[-] Geocoding Error: {str(geo_err)}")
-            print("="*50 + "\n")
-            
-            return jsonify({"status": "success", "message": "Payload delivered"}), 200
-        else:
-            return jsonify({"status": "error", "message": "Missing coordinates"}), 400
-
-    except Exception as e:
-        print(f"[-] Server Error: {str(e)}")
-        return jsonify({"status": "error", "message": "Internal server error"}), 500
+    # Local dashboard will load to view your own IP
+    return "<h1>Your OSINT Core is Running Locally! Check Termux Console.</h1>"
 
 if name == 'main':
-    # আপনার সেই প্রিয় আসল ওল্ড স্কুলের সবুজ হ্যাকিং ব্যানার ইন্টারফেস
+    # Your favorite authentic old-school green hacking banner interface
     print("\033[92m" + "="*50)
     print("""
   _ __    _     _    ___ _   _   _    _ 
@@ -59,21 +32,23 @@ if name == 'main':
    | | |  _ </ _ \ |_| . \| |  | | |_| |\  / _ \| |
    |_| |_| \_/_/   \_\__|_|\_\_|  |_|___|_| \_/_/   \_\_|
     """)
-    print(" [*] Secure OSINT Location Tracking Engine v1.0.3 [*]")
+    print(" [*] Personal OSINT & IP Network Engine v1.0.4 [*]")
     print("="*50 + "\033[0m")
     
-    print("\033[94m[*] Initializing Systems...")
-    print("[+] Framework status: ACTIVE and Listening for targets...\033[0m")
-    print("\n\033[93m===========[ TARGETING LINKS ]===========\033[0m")
-    print(" LOCAL ACCESS  : http://127.0.0.1:5000")
-    print(" LAN CAPTURE   : http://100.73.179.109:5000")
-    print("\033[93m=========================================\033[0m")
-    print("\n[*] Live logs will stream down below...\n")
+    # Retrieving your local IP
+    my_ip = get_local_ip()
+    
+    print("\033[94m[*] Scanning Local Network Interfaces...")
+    print("[+] Status: ONLINE and Connected\033[0m")
+    print("\n\033[93m===========[ YOUR DEVICE IP INFO ]===========\033[0m")
+    print(f" YOUR LOCAL IP  : http://{my_ip}:5000")
+    print(f" LOCAL LOOPBACK : http://127.0.0.1:5000")
+    print("\033[93m=============================================\033[0m")
+    print("\n[*] Running secure local server. Press Ctrl+C to stop.\n")
 
-    # টানেলিং সার্ভিসের সাথে সামঞ্জস্য রাখার জন্য SSL ছাড়া স্ট্যান্ডার্ড HTTP মোডে রান করা হলো
+    # Running the server locally for yourself only
     app.run(
         host='0.0.0.0', 
         port=5000, 
-        debug=True,
-        load_dotenv=False
+        debug=False
     )

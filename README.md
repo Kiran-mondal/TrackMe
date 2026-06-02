@@ -85,7 +85,7 @@ python app.py
 ## 📸 Screenshots
 
 ### Console Output - Live Location Tracking
-![TrackMe Console Output](https://github.com/Kiran-mondal/TrackMe/raw/main/screenshots/console-output.png)
+‍‌‌
 
 *Real-time console showing IP information, targeting links, and location capture telemetry*
 

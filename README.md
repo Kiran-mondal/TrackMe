@@ -2,7 +2,7 @@
 
 ## 🎯 Secure OSINT Location Tracking Engine v1.0.4
 
-A real-time location tracking application using HTML5 Geolocation API and Flask backend. Track and view your GPS position on an interactive map with live updates. Features self-signed SSL/TLS encryption.
+A real-time location tracking application using HTML5 Geolocation API and Flask backend. Track and view your GPS position on an interactive map with live updates. Features self-signed SSL/TLS encryption, reverse geocoding, and real-time telemetry logging.
 
 ---
 
@@ -85,7 +85,7 @@ python app.py
 ## 📸 Screenshots
 
 ### Console Output - Live Location Tracking
-‍‌‌
+![TrackMe Console Output](https://github.com/Kiran-mondal/TrackMe/raw/main/screenshots/console-output.png)
 
 *Real-time console showing IP information, targeting links, and location capture telemetry*
 
@@ -126,6 +126,7 @@ TrackMe/
 ├── requirements.txt       # Python dependencies
 ├── templates/index.html   # Frontend HTML with geolocation
 ├── static/                # CSS, JavaScript, Images
+├── screenshots/           # Screenshot directory
 ├── README.md             # This file
 ├── LICENSE               # GPL-3.0 License
 └── .gitignore           # Git ignore rules

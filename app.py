@@ -2,7 +2,7 @@ import socket
 import os
 from flask import Flask, render_template
 
-app = Flask(name)
+app = Flask(__name__)
 
 def get_local_ip():
     """Function to find the actual local IP address of your device"""
@@ -22,7 +22,7 @@ def index():
     # Local dashboard will load to view your own IP
     return "<h1>Your OSINT Core is Running Locally! Check Termux Console.</h1>"
 
-if name == 'main':
+if __name__ == '__main__':
     # Your favorite authentic old-school green hacking banner interface
     print("\033[92m" + "="*50)
     print("""

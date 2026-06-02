@@ -1,8 +1,8 @@
 # TrackMeNow 🌐
 
-## 🎯 Secure OSINT Location Tracking Engine v1.0.2
+## 🎯 Secure OSINT Location Tracking Engine v1.0.4
 
-A real-time location tracking application using HTML5 Geolocation API and Flask backend. Track and view your GPS position on an interactive map with live updates. Features self-signed SSL/TLS encryption and reverse geocoding capabilities.
+A real-time location tracking application using HTML5 Geolocation API and Flask backend. Track and view your GPS position on an interactive map with live updates. Features self-signed SSL/TLS encryption.
 
 ---
 
@@ -164,6 +164,44 @@ The application will:
 
 ---
 
+## 🎨 Application Interface
+
+### Live Console Output Example:
+
+When you run `python app.py`, you'll see a similar output to this:
+
+```
+╔════════════════════════════════════════════════════╗
+║                                                    ║
+║           TRACKMENOM v1.0.4                       ║
+║           Personal OSINT & IP Network Engine      ║
+║                                                    ║
+╚════════════════════════════════════════════════════╝
+
+[+] Personal OSINT & IP Network Engine v1.0.4 [+]
+═════════════════════════════════════════════════
+
+[+] Scanning Local Network Interfaces...
+[+] Status: ONLINE and connected
+
+═══════════[ YOUR DEVICE IP INFO ]═══════════
+YOUR LOCAL IP   : http://100.73.179.109:5000
+LOCAL LOOPBACK  : http://127.0.0.1:5000
+═════════════════════════════════════════════
+
+[+] Running secure local server. Press Ctrl+C to stop.
+ * Serving Flask app 'app'
+ * Debug mode: off
+ ⚠️  WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://100.73.179.109:5000
+
+Press CTRL+C to quit
+```
+
+---
+
 ## 💻 Usage
 
 ### Access the Application:
@@ -211,7 +249,7 @@ TrackMeNow/
 
 ---
 
-## 🛠️ Technology Stack
+## ����️ Technology Stack
 
 | Component | Technology | Purpose |
 |-----------|-----------|---------|
@@ -412,10 +450,10 @@ https://<ANDROID_DEVICE_LOCAL_IP>:5000
 
 ## 🎨 Understanding the Output
 
-When you run `python app.py`, you'll see:
+When you run `python app.py`, you'll see detailed console output showing:
 
 ```
-[+] Secure OSINT Location Tracking Engine v1.0.2
+[+] Secure OSINT Location Tracking Engine v1.0.4
 [*] Initializing SSL/TLS layer with self-signed certificates...
 [+] Framework status: ACTIVE and listening for incoming payloads...
 
@@ -541,7 +579,7 @@ ps aux | grep python
 ---
 
 **Last Updated**: June 2026  
-**Version**: 1.0.2  
+**Version**: 1.0.4  
 **Status**: ✅ Active & Maintained  
 **License**: GPL-3.0  
 

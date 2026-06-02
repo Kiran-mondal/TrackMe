@@ -1,11 +1,11 @@
 # Core Framework for Web Server
-Flask==3.0.2
+Flask==3.1.3
 
 # WSGI Server utilities & HTTP parsing
-Werkzeug==3.0.1
+Werkzeug==3.1.6
 
 # Template Engine for UI rendering
-Jinja2==3.1.3
+Jinja2==3.1.6
 
 # HTML/XML handling utilities
 MarkupSafe==2.1.5

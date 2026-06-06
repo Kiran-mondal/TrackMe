@@ -1,8 +1,21 @@
-# TrackMeNow 🌐
+# TrackMe 🌐
 
-## Live Location Tracker
+## 🎯 Secure OSINT Location Tracking Engine v1.0.4
 
-A real-time location tracking application using HTML5 Geolocation API and Flask backend. Track and view your GPS position on an interactive map with live updates.
+A real-time location tracking application using HTML5 Geolocation API and Flask backend. Track and view your GPS position on an interactive map with live updates. Features self-signed SSL/TLS encryption, reverse geocoding, and real-time telemetry logging.
+
+---
+
+## ⚡ Quick Start (One Command)
+
+```bash
+git clone https://github.com/Kiran-mondal/TrackMe.git && cd TrackMe && python3 -m venv venv && source venv/bin/activate && pip install -r requirements.txt && chmod +x generate_cert.sh && ./generate_cert.sh && python app.py
+```
+
+**Windows PowerShell**:
+```bash
+git clone https://github.com/Kiran-mondal/TrackMe.git; cd TrackMe; python3 -m venv venv; venv\Scripts\Activate.ps1; pip install -r requirements.txt; .\generate_cert.sh; python app.py
+```
 
 ---
 
@@ -12,142 +25,232 @@ A real-time location tracking application using HTML5 Geolocation API and Flask 
 - 📍 **Live Map Updates** - Interactive map with location visualization
 - 🚀 **Simple Flask Backend** - Lightweight and easy-to-deploy server
 - 📱 **Mobile-Friendly** - Responsive design for all devices
-- ⚡ **Real-time Updates** - Instant position synchronization
-- 🔐 **Secure** - Privacy-focused location tracking
+- ⚡ **Real-time Updates** - Instant position synchronization with payload logging
+- 🔐 **Secure HTTPS/SSL** - Self-signed certificates with TLS encryption
+- 🌍 **Reverse Geocoding** - Converts GPS coordinates to actual street addresses
+- 🎨 **Ethical Hacking Theme** - Professional ANSI colored output and targeting logs
+- 📲 **Termux Compatible** - Auto-detects Termux environment for mobile deployment
 
 ---
 
-## 📋 Prerequisites
+## 📋 System Prerequisites
 
-Before you begin, ensure you have the following installed:
-- Python 3.7+
-- pip (Python package manager)
-- Git
+- **Python** 3.7+
+- **pip** (Python package manager)
+- **Git** (for cloning repository)
+- **OpenSSL** (usually pre-installed on Linux/Mac)
+- **Bash** (for running certificate generation script)
 - Modern web browser with Geolocation API support
 
+### Verify Prerequisites:
+```bash
+python3 --version && pip --version && git --version && openssl version
+```
+
 ---
 
-## 🚀 Installation
+## 🚀 Installation Steps
 
-### 1. Clone the Repository
-
+### Step 1: Clone the Repository
 ```bash
-git clone https://github.com/Kiran-mondal/TrackMeNow.git
-cd TrackMeNow
+git clone https://github.com/Kiran-mondal/TrackMe.git
+cd TrackMe
 ```
 
-### 2. Create a Virtual Environment (Optional but Recommended)
-
+### Step 2: Create Virtual Environment
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python3 -m venv venv
+source venv/bin/activate    # Linux/Mac
+# venv\Scripts\activate     # Windows
 ```
 
-### 3. Install Dependencies
-
+### Step 3: Install Dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Run the Application
+### Step 4: Generate SSL Certificates
+```bash
+chmod +x generate_cert.sh
+./generate_cert.sh
+```
 
+### Step 5: Launch the Application
 ```bash
 python app.py
 ```
 
-The application will be available at `http://localhost:5000` (or the configured port)
+---
+
+## 📸 Screenshots
+
+### Console Output - Live Location Tracking
+![TrackMe Console Output](https://github.com/Kiran-mondal/TrackMe/raw/main/screenshots/console-output.png)
+
+*Real-time console showing IP information, targeting links, and location capture telemetry*
+
+### Web Interface - Location Map
+*[Add your web interface screenshot here]*
+
+### Live Location Data
+*[Add your location tracking screenshot here]*
+
+### Mobile (Termux) Deployment
+*[Add your mobile deployment screenshot here]*
 
 ---
 
 ## 💻 Usage
 
-1. Open your web browser and navigate to `http://localhost:5000`
-2. Allow the browser to access your location when prompted
-3. Your current location will appear on the map
-4. The map updates in real-time as you move
+### Access the Application:
+After launching `python app.py`, open your browser:
+
+- **Local Access**: `https://127.0.0.1:5000`
+- **LAN Access**: `https://<YOUR_LOCAL_IP>:5000`
+
+### How to Use:
+1. Allow location permission when browser asks
+2. Your GPS location appears on the interactive map
+3. Tracker updates in real-time as you move
+4. Check terminal for live telemetry logs
 
 ---
 
 ## 📁 Project Structure
 
 ```
-TrackMeNow/
-├── app.py                 # Main Flask application
+TrackMe/
+├── app.py                 # Main Flask application with SSL/TLS
+├── generate_cert.sh       # Certificate generation script
+├── location_tool.py       # Location utility functions
 ├── requirements.txt       # Python dependencies
-├── templates/
-│   └── index.html        # Frontend HTML
-├── static/
-│   ├── css/              # Stylesheets
-│   ├── js/               # JavaScript files
-│   └── images/           # Images and assets
-└── README.md             # This file
+├── templates/index.html   # Frontend HTML with geolocation
+├── static/                # CSS, JavaScript, Images
+├── screenshots/           # Screenshot directory
+├── README.md             # This file
+├── LICENSE               # GPL-3.0 License
+└── .gitignore           # Git ignore rules
 ```
 
 ---
 
-## 🛠️ Technology Stack
+## 🏗️ Technology Stack
 
-- **Backend**: Flask (Python)
-- **Frontend**: HTML5, CSS3, JavaScript
-- **Geolocation**: HTML5 Geolocation API
-- **Mapping**: Leaflet.js / Google Maps API
-- **Real-time Updates**: WebSockets / AJAX
+| Component | Technology | Purpose |
+|-----------|-----------|---------|
+| **Backend** | Flask 3.0.2 (Python) | Web server & API endpoints |
+| **Frontend** | HTML5, CSS3, JavaScript | User interface |
+| **Geolocation** | HTML5 Geolocation API | GPS coordinate retrieval |
+| **Mapping** | Leaflet.js | Interactive map visualization |
+| **Real-time** | WebSockets / AJAX | Live location updates |
+| **Geocoding** | geopy (Nominatim) | Reverse geocoding |
+| **Security** | OpenSSL/SSL-TLS | HTTPS encryption |
 
 ---
 
 ## ⚙️ Configuration
 
-Update configuration in `app.py`:
-
+### Default Settings (in `app.py`):
 ```python
-DEBUG = True              # Development mode
-HOST = '0.0.0.0'        # Server host
-PORT = 5000             # Server port
+host='0.0.0.0'           # Listen on all interfaces
+port=5000                # Port number
+debug=True               # Development mode
+ssl_context=(cert_path, key_path)  # Self-signed certificates
 ```
+
+### Change Port:
+Edit `app.py` and modify the port number from 5000 to your desired port.
 
 ---
 
 ## 🌍 API Endpoints
 
-### GET /
-Returns the main tracking interface
+### Main Route
+**GET** `/`
+- Returns the main tracking interface (index.html)
 
-### GET /api/location
-Returns the current user location
-
-### POST /api/location
-Updates location data
+### Location Update Endpoint
+**POST** `/update_location`
+- Receives GPS coordinates from frontend
+- Performs reverse geocoding
+- Logs telemetry with ANSI colors
+- **Request Body**: `{"lat": 40.7128, "lon": -74.0060}`
 
 ---
 
-## 📸 Screenshots
+## 🔐 SSL/TLS & Security
 
-[Add screenshots of your application here]
+### Certificate Details:
+- **Type**: Self-signed X.509 certificate
+- **Key Size**: RSA 4096-bit encryption
+- **Validity**: 365 days from generation
+- **Files**: `cert.pem` (certificate) + `key.pem` (private key)
+
+### Security Features:
+✅ HTTPS/TLS encryption for data in transit  
+✅ Self-signed certificates for development  
+✅ Privacy-focused location tracking  
+✅ No external service dependencies for HTTPS  
 
 ---
 
 ## 🐛 Troubleshooting
 
-### Location not updating
-- Check browser permissions for geolocation
-- Ensure HTTPS is used (required for secure contexts)
-- Verify browser support for Geolocation API
+### Certificate Generation Failed
+```bash
+openssl req -x509 -newkey rsa:4096 -nodes \
+    -out cert.pem -keyout key.pem -days 365 \
+    -subj "/CN=localhost"
+```
 
-### Server not starting
-- Verify Python is installed: `python --version`
-- Check if port 5000 is available
-- Ensure all dependencies are installed
+### Port Already in Use
+```bash
+lsof -i :5000           # macOS/Linux
+netstat -ano | grep 5000  # Windows
+# Edit app.py to use a different port
+```
 
-### Map not loading
-- Check browser console for errors (F12)
-- Verify internet connection for map tiles
-- Check API keys if using external map service
+### Location Not Updating
+- ✅ Check browser console (F12) for errors
+- ✅ Verify browser geolocation permission
+- ✅ Ensure HTTPS is being used (not HTTP)
+- ✅ Enable location services on device
+- ✅ Try in incognito/private mode
+
+---
+
+## 📱 Mobile Deployment (Termux)
+
+```bash
+pkg install python git openssl
+git clone https://github.com/Kiran-mondal/TrackMe.git
+cd TrackMe
+pip install -r requirements.txt
+chmod +x generate_cert.sh
+./generate_cert.sh
+python app.py
+```
+
+Access from another device: `https://<ANDROID_DEVICE_IP>:5000`
+
+---
+
+## 🛡️ Privacy & Ethics
+
+⚠️ **IMPORTANT**: This project is for **educational and authorized testing only**.
+
+- Only track locations with **explicit user consent**
+- Use for **authorized security testing** only
+- Comply with local laws and regulations
+- Respect user privacy and data protection
 
 ---
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the **GNU General Public License v3.0** (GPL-3.0)
+
+See the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -155,34 +258,45 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Contributions are welcome! Please follow these steps:
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+1. **Fork** the repository
+2. **Create** your feature branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. **Open** a Pull Request
 
 ---
 
 ## 👨‍💻 Author
 
 **Kiran Mondal**  
-GitHub: [@Kiran-mondal](https://github.com/Kiran-mondal)
+📱 GitHub: [@Kiran-mondal](https://github.com/Kiran-mondal)  
+🌐 Repository: [TrackMe](https://github.com/Kiran-mondal/TrackMe)
 
 ---
 
-## 📧 Support
+## 📧 Support & Issues
 
-For issues, questions, or suggestions, please open an [Issue](https://github.com/Kiran-mondal/TrackMeNow/issues) on GitHub.
+For issues, questions, bugs, or suggestions:
+- 🐛 Open an [Issue](https://github.com/Kiran-mondal/TrackMe/issues)
+- 💬 Check existing issues for solutions
+- 📮 Contact via GitHub
 
 ---
 
 ## 🙏 Acknowledgments
 
-- Flask documentation
-- Leaflet.js mapping library
-- HTML5 Geolocation API
+- **Flask** - Micro web framework for Python
+- **geopy** - Reverse geocoding library (Nominatim)
+- **Leaflet.js** - Interactive mapping library
+- **HTML5 Geolocation API** - Browser location access
+- **OpenSSL** - SSL/TLS certificate generation
+- Community feedback and contributions
 
 ---
 
 **Last Updated**: June 2026  
-**Version**: 1.0.0
+**Version**: 1.0.4  
+**Status**: ✅ Active & Maintained  
+**License**: GPL-3.0  
+
+🚀 **Ready to Deploy!**

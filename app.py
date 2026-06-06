@@ -247,6 +247,163 @@ def is_in_options(num):
 
 def option():
     clear()
+    # New Slanted Cyberpunk Style Design
+    stderr.writelines(f"""{Cy}
+    ████████╗██████╗  █████╗  ██████╗██╗  ██╗    ███╗   ███╗███████╗
+    ╚══██╔══╝██╔══██╗██╔══██╗██╔════╝██║_ ██╔╝    ████╗ ████║██╔════╝
+       ██║   ██████╔╝███████║██║     █████_★     ██╔████╔██║█████╗  
+       ██║   ██╔══██╗██╔══██║██║     ██╔═██╗     ██║╚██╔╝██║██╔══╝  
+       ██║   ██║  ██║██║  ██║╚██████╗██║  ██╗    ██║ ╚═╝ ██║███████╗
+       ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝╚═╝  ╚═╝    ╚═╝     ╚═╝╚══════╝
+                                                      
+                  {Wh} [ ★ ]  C O D E   B Y  H U N X  [ ★ ]
+    """)
+
+    stderr.writelines(f"\n\n\n{option_text()}")
+
+
+def run_banner():
+    clear()
+    time.sleep(1)
+    # New Stylized Minimal Terminal Sub-Banner
+    stderr.writelines(f"""{Wh}
+         ______
+        / ____ \        {Cy}____________________________{Wh}
+       | |    | |       {Cy}|                          |{Wh}
+       | |{Re}☠  ☠{Wh}| |       {Cy}|  {Gr}STATUS: {Wh}TRACK ME...     |{Wh}
+       | |____| |       {Cy}|  {Gr}TARGET: {Wh}PROCESSING      |{Wh}
+        \______/        {Cy}|  {Ye}@CODE BY KIRAN-MONDAL    |{Wh}
+       /|      |\       {Cy}____________________________{Wh}
+      /_|______|_\\
+        """)
+    time.sleep(0.5)
+
+
+def main():
+    clear()
+    option()
+    time.sleep(1)
+    try:
+        opt = int(input(f"{Wh}\n [ + ] {Gr}Select Option : {Wh}"))
+        execute_option(opt)
+    except ValueError:
+        print(f'\n{Wh}[ {Re}! {Wh}] {Re}Please input number')
+        time.sleep(2)
+        main()
+
+
+if __name__ == '__main__':
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(f'\n{Wh}[ {Re}! {Wh}] {Re}Exit')
+        time.sleep(2)
+        exit()
+            response = requests.get(url)
+            if response.status_code == 200:
+                results[site['name']] = url
+            else:
+                results[site['name']] = (f"{Ye}Username not found {Ye}!")
+    except Exception as e:
+        print(f"{Re}Error : {e}")
+        return
+
+    print(f"\n {Wh}========== {Gr}SHOW INFORMATION USERNAME {Wh}==========")
+    print()
+    for site, url in results.items():
+        print(f" {Wh}[ {Gr}+ {Wh}] {site} : {Gr}{url}")
+
+
+@is_option
+def showIP():
+    respone = requests.get('https://api.ipify.org/')
+    Show_IP = respone.text
+
+    print(f"\n {Wh}========== {Gr}SHOW INFORMATION YOUR IP {Wh}==========")
+    print(f"\n {Wh}[{Gr} + {Wh}] Your IP Adrress : {Gr}{Show_IP}")
+    print(f"\n {Wh}==============================================")
+
+
+# OPTIONS
+options = [
+    {
+        'num': 1,
+        'text': 'IP Tracker',
+        'func': IP_Track
+    },
+    {
+        'num': 2,
+        'text': 'Show Your IP',
+        'func': showIP
+
+    },
+    {
+        'num': 3,
+        'text': 'Phone Number Tracker',
+        'func': phoneGW
+    },
+    {
+        'num': 4,
+        'text': 'Username Tracker',
+        'func': TrackLu
+    },
+    {
+        'num': 0,
+        'text': 'Exit',
+        'func': exit
+    }
+]
+
+
+def clear():
+    if os.name == 'nt':
+        _ = os.system('cls')
+    else:
+        _ = os.system('clear')
+
+
+def call_option(opt):
+    if not is_in_options(opt):
+        raise ValueError('Option not found')
+    for option in options:
+        if option['num'] == opt:
+            if 'func' in option:
+                option['func']()
+            else:
+                print('No function detected')
+
+
+def execute_option(opt):
+    try:
+        call_option(opt)
+        input(f'\n{Wh}[ {Gr}+ {Wh}] {Gr}Press enter to continue')
+        main()
+    except ValueError as e:
+        print(e)
+        time.sleep(2)
+        execute_option(opt)
+    except KeyboardInterrupt:
+        print(f'\n{Wh}[ {Re}! {Wh}] {Re}Exit')
+        time.sleep(2)
+        exit()
+
+
+def option_text():
+    text = ''
+    for opt in options:
+        text += f'{Wh}[ {opt["num"]} ] {Gr}{opt["text"]}\n'
+    return text
+
+
+def is_in_options(num):
+    for opt in options:
+        if opt['num'] == num:
+            return True
+    return False
+
+
+def option():
+    clear()
     # Changed from G-TRACKER to TRACK ME ASCII
     stderr.writelines(f"""
      __________  ___   ______ __ __   __  ___ ______
